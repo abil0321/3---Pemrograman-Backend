@@ -2,48 +2,50 @@
 # membuat class Animal
 class Animal{
     # property animals
-    // public $animals;
-
+    public $animals;
     # method constructor - mengisi data awal
     # parameter: data hewan (array)
-    public function __construct($data){
-        $this->animals = $data;
+    public function __construct($animals)
+    {
+        $this->animals = $animals;
     }
 
     # method index - menampilkan data animals
-    public function index(){
+    public function index()
+    {
         # gunakan foreach untuk menampilkan data animals (array)
-        $animals = $this->animals;
-        foreach ($animals as $animal){
-            echo $animal . '<br>';
+        foreach ($this->animals as $animal) {
+            echo $animal . "<br>";
         }
     }
 
     # method store - menambahkan hewan baru
     # parameter: hewan baru
-    public function store($data){
+    public function store($data)
+    {
         # gunakan method array_push untuk menambahkan data baru
-        $animals = $this->animals;
-        array_push($animals, $data);
-        // foreach ($animals as $animal){
-        //     echo $animal.'<br>';
-        // }
+        array_push($this->animals, $data);
+        foreach ($this->animals as $animal) {
+            echo $animal . "<br>";
+        }
     }
 
     # method update - mengupdate hewan
     # parameter: index dan hewan baru
-    public function update($index, $data){
+    public function update($index, $data)
+    {
+        # gunakan index untuk mengupdate data animals
 
     }
 
     # method delete - menghapus hewan
     # parameter: index
-    public function destroy($index){
+    public function destroy($index)
+    {
         # gunakan method unset atau array_splice untuk menghapus data array
-        $animals = $this->animals;
-        unset($animals[$index]); // Unset
-        foreach ($animals as $animal){
-            echo $animal.'<br>';
+        unset($this->animals[$index]);
+        foreach ($this->animals as $animal) {
+            echo $animal . "<br>";
         }
     }
 }
@@ -58,7 +60,7 @@ echo "<br>";
 
 echo "Store - Menambahkan hewan baru <br>";
 $animal->store('Burung');
-$animal->index();
+// $animal->index();
 echo "<br>";
 
 echo "Update - Mengupdate hewan <br>";
