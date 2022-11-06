@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\AnimalController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -27,3 +28,7 @@ Route::post('/animals', [AnimalController::class, 'store']);
 Route::put('/animals/{id}', [AnimalController::class, 'update']);
 
 Route::delete('/animals/{id}', [AnimalController::class, 'destroy']);
+
+// --------------------------------------------------------------------------------------
+
+Route::get('/students', [StudentController::class, 'index']);
