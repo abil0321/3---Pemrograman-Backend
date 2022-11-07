@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Student;
 
+use function Symfony\Component\String\s;
+
 class StudentController extends Controller
 {
     /**
@@ -77,7 +79,26 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        //
+        $student = Student::find($id);
+
+        if ($student) {
+
+            $data = [
+                'message' => 'get Student Details',
+                'data' => $student,
+            ];
+
+            //mengembalikan data json status code 200
+            return response()->json($data, 200);
+        } else {
+
+            $data = [
+                'message' => 'Student data not found'
+            ];
+
+            return response()->json($data, 404);
+        }
+
     }
 
     /**
@@ -101,23 +122,43 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
         $student = Student::find($id);
 
-        $student->name = $request->input('name');
-        $student->nim = $request->input('nim');
-        $student->email = $request->input('email');
-        $student->jurusan = $request->input('jurusan');
+        if ($student) {
 
-        // $student = Student::update($student);
-        $student->save();
+            // $student->name = $request->input('name');
+            // $student->nim = $request->input('nim');
+            // $student->email = $request->input('email');
+            // $student->jurusan = $request->input('jurusan');
+    
+            // // $student = Student::update($student);
+            // $student->save();
 
-        $data = [
-            'message' => 'Student Update Successfully',
-            'data' => $student,
-        ];
+            $input = [
+                'name' => $request->name ?? $student->name,
+                'nim' => $request->nim ?? $student->nim,
+                'email' => $request->email ?? $student->email,
+                'jurusan' => $request->jurusan ?? $student->jurusan,
+            ];
 
-        return response()->json($data, 201);
+            $student->update($input);
+    
+            $data = [
+                'message' => 'Student Update Successfully',
+                'data' => $student,
+            ];
+    
+            return response()->json($data, 200);
+
+        } else{
+            $data = [
+               'message' => 'Student data not found maseh !!'
+            ];
+
+            return response()->json($data, 404);
+        }
+
     }
 
     /**
@@ -130,13 +171,23 @@ class StudentController extends Controller
     {
         //
         $student = Student::find($id);
+        if ($student) {
+    
         $student->delete();
 
         $data = [
            'message' => 'Student Deleted Successfully',
-            'data' => $student,
         ];
 
         return response()->json($data, 200);
+        } else {
+
+            $data = [
+                'message' => 'Student data not found maseh !!'
+             ];
+ 
+             return response()->json($data, 404);
+
+        }
     }
 }
