@@ -213,7 +213,7 @@ class PatientController extends Controller
     public function positive()
     {
 
-        $status = Patient::where('status', 'LIKE', '%'. 'Positive'. '%')->get();
+        $status = Patient::where('status', 'LIKE', '%'. 'positive'. '%')->get();
 
         if(count($status)){
 
@@ -228,7 +228,7 @@ class PatientController extends Controller
     public function recovered()
     {
 
-        $status = Patient::where('status', 'LIKE', '%'. 'Recovered'. '%')->get();
+        $status = Patient::where('status', 'LIKE', '%'. 'recovered'. '%')->get();
 
         if(count($status)){
 
@@ -243,7 +243,7 @@ class PatientController extends Controller
     public function dead()
     {
 
-        $status = Patient::where('status', 'LIKE', '%'. 'Dead'. '%')->get();
+        $status = Patient::where('status', 'LIKE', '%'. 'dead'. '%')->get();
 
         if(count($status)){
 
