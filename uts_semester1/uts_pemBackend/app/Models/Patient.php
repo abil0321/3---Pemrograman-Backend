@@ -14,6 +14,8 @@ class Patient extends Model
         'name',
         'phone',
         'address',
-        'status'
+        'status',
+        'in_date_at',
+        'out_date_at'
     ];
 }

@@ -49,7 +49,9 @@ class PatientController extends Controller
             'name' => $request->name,
             'phone' => $request->phone,
             'address' => $request->address,
-            'status' => $request->status
+            'status' => $request->status,
+            'in_date_at' =>$request->in_date_at,
+            'out_date_at' =>$request->out_date_at
         ];
 
         // Menggunakan Fungsi bawaan laravel untuk create inputan form
@@ -128,6 +130,8 @@ class PatientController extends Controller
                 'phone' => $request->phone ?? $patient->phone,
                 'address' => $request->address ?? $patient->address,
                 'status' => $request->status ?? $patient->status,
+                'in_date_at' =>$request->in_date_at ?? $patient->in_date_at,
+                'out_date_at' =>$request->out_date_at ?? $patient->out_date_at
             ];
 
             //fungsi bawaan laravel untuk update data
