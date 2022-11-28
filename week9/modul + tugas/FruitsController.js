@@ -1,6 +1,7 @@
 const fruits = require("./data.js");
 
 const index = () => {
+    console.log("\nIndex ==== \n--------------------------------------");
     for (const fruit of fruits) {
         console.log(fruit);
     }
