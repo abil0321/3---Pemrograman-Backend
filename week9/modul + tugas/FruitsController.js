@@ -9,7 +9,7 @@ const index = () => {
 
 const store = (name) => {
     console.log("\nStore ==== \n--------------------------------------");
-   fruits.push(name); fruits.push(name);
+   fruits.push(name);
     index();
 };
 
