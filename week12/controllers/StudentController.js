@@ -56,6 +56,7 @@ class StudentController {
         
     }
 
+
     // =================================================================
 
 
@@ -76,24 +77,37 @@ class StudentController {
 
     // ------------------------------------------------------------------
 
-    async store(req,res){
-        const { 
-            name,
-            nim,
-            email,
-            jurusan
-        } = req.body;
+    // async store(req,res){
+    //     const { 
+    //         name,
+    //         nim,
+    //         email,
+    //         jurusan
+    //     } = req.body;
 
-        const ar_data = [name,nim,email,jurusan];
+    //     const ar_data = [name,nim,email,jurusan];
 
-        const students = await Student.create(ar_data);
+    //     const students = await Student.create(ar_data);
 
-        const data = {
-            message: `Menambahkan Student`,
-            data: ar_data,
+    //     const data = {
+    //         message: `Menambahkan Student`,
+    //         data: ar_data,
+    //     }
+    //     res.json(data);
+    // }
+
+    // ---------------------------------------------------------------------
+
+        async store(req, res) {
+            const student = await Student.create(req.body);
+     
+            const data = {
+                message: "Menambahkan data student",
+                data: student,
+            };
+    
+            res.json(data);
         }
-        res.json(data);
-    }
 
 
     // =================================================================
