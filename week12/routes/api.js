@@ -37,7 +37,7 @@ router.post("/students", StudentController.store);
 
 router.put("/students/:id", StudentController.update);
 
-router.get("/students/:id", StudentController.find);
+router.get("/students/:id", StudentController.show);
 
 router.delete("/students/:id", StudentController.destroy);
 

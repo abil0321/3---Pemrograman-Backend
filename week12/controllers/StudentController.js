@@ -32,11 +32,19 @@ class StudentController {
     async index(req,res){
         // res.send("Menampilkan Semua Student!");
         const students = await Student.all();
-        const data = {
+       
+        if (students.length > 0) {
+            const data = {
                 message: "Menampilkan Semua Student!",
                 data: students
            }
-        res.json(data);
+        res.status(200).json(data);
+        } else {
+            const data = {
+                message: "Student Not Found !"
+           }
+            res.status(200).json(data);
+        }
         
     }
 
@@ -105,6 +113,7 @@ class StudentController {
                 message: "Menambahkan data student",
                 data: student,
             };
+            console.log(student);
     
             res.json(data);
         }
@@ -112,42 +121,87 @@ class StudentController {
 
     // =================================================================
 
-    update(req,res){
+    async update(req, res){
         const { id } = req.params;
-        const { nama } = req.body;
+        const student = await Student.find(id);
 
-        students[id] = nama;
-        // students[id] = req.body;
-        // res.send(`Mengedit Student ${id}, nama : ${nama}`);
-
-        const data = {
-            message: `Mengedit Student ${id}, nama : ${nama}`,
-            data: students,
-            // jumlah: students.length
-
+        
+        if (student) {
+            const student = await Student.update(id, req.body);
+            const data = {
+                message: `Mengedit data Student`,
+                data: student
+            }
+            res.status(200).json(data);
+        } else {
+            const data = {
+                message: `Student Not Found`,
+            }
+            res.status(404).json(data);
         }
-        res.json(data);
     }
 
     // =================================================================
 
-    destroy(req,res){
-        const { id } = req.params;
-        // res.send(`Menghapus Student ${id}`);
+    // destroy(req,res){
+    //     const { id } = req.params;
+    //     // res.send(`Menghapus Student ${id}`);
 
-        // const student = students.indexOf(students[id]);
-        // if (student > -1) {
-        //     students.splice(student, 1);
+    //     // const student = students.indexOf(students[id]);
+    //     // if (student > -1) {
+    //     //     students.splice(student, 1);
+    //     // }
+
+    //     students.splice(id, 1);
+
+        // const data = {
+        //     message: `Menghapus Student ${id}`,
+        //     data: students
         // }
-
-        students.splice(id, 1);
-
-        const data = {
-            message: `Menghapus Student ${id}`,
-            data: students
-        }
-        res.json(data);
+    //     res.json(data);
         
+    // }
+
+    // ---------------------------------------------------------------------
+
+    async destroy(req, res){
+        const { id } = req.params;
+        const student = await Student.find(id);
+
+        if (student) {
+            await Student.delete(id);
+            const data = {
+                message: `Menghapus data Student`
+            }
+            res.status(200).json(data);
+
+        } else {
+            const data = {
+                message: `Student Not Found`,
+            }
+            res.status(404).json(data);
+        }
+    }
+
+    // ---------------------------------------------------------------------
+
+    async show(req, res){
+        const { id } = req.params;
+
+        const student = await Student.find(id);
+
+        if (student) {
+            const data = {
+                message: `Menampilkan data Student`,
+                data: student
+            }
+            res.status(200).json(data); 
+        } else {
+            const data = {
+                message: `Student Not Found`,
+            }
+            res.status(404).json(data);
+        }
     }
 }
 
