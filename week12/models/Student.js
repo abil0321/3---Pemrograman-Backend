@@ -68,7 +68,7 @@ class Student {
 
     // --------------------------------------------------------------------------------------------
 
-    static async create(data){
+    static async create(data, callback){
         const id = await new Promise((resolve, reject) => {
             const sql = "INSERT INTO students SET ?, created_at=?, updated_at=?";
             db.query(sql, [data, new Date(), new Date()], (err, results) =>{
@@ -76,12 +76,14 @@ class Student {
             })
         })
 
-        return new Promise((resolve, reject) => {
-            const sql = "SELECT * FROM students WHERE id = ?";
-            db.query(sql, id, (err, results) => {
-                resolve(results)
-            })
-        })
+        // return new Promise((resolve, reject) => {
+        //     const sql = "SELECT * FROM students WHERE id = ?";
+        //     db.query(sql, id, (err, results) => {
+        //         resolve(results)
+        //     })
+        // })
+        const student = this.find(id);
+        return student;
     }
 
     // =======================================================================================================================

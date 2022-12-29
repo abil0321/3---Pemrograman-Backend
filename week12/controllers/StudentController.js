@@ -107,6 +107,16 @@ class StudentController {
     // ---------------------------------------------------------------------
 
         async store(req, res) {
+
+            const {name, nim, email, jurusan} =req.body;
+
+            if (!name || !nim || !email || !jurusan) {
+                const data = {
+                    message: "Semua data harus di kirim!"
+                };
+                res.status(442).json(data);
+            } 
+
             const student = await Student.create(req.body);
      
             const data = {
@@ -115,7 +125,7 @@ class StudentController {
             };
             console.log(student);
     
-            res.json(data);
+            res.status(201).json(data);
         }
 
 
