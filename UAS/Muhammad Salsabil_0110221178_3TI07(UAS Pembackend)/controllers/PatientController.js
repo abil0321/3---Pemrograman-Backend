@@ -49,7 +49,7 @@ class PatientController {
             };
             res.status(442).json(data);
         } else {
-
+            
             const patient = await Patient.create(req.body);
 
             const data = {
