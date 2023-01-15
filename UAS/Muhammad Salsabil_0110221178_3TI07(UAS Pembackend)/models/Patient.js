@@ -100,6 +100,16 @@ static negative() {
   });
 }
 
+static dead() {
+    return new Promise((resolve, reject) => {
+        const query = "SELECT * FROM patients where status='dead'";
+  
+        db.query(query, (err, results) => {
+            resolve(results);
+        });
+    });
+  }
+
 }
 
 // export class Patient

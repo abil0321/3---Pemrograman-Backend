@@ -12,13 +12,13 @@ class PatientController {
    
     if (patients.length > 0) {
         const data = {
-            message: "Menampilkan Semua patient!",
+            message: "Get All Resource",
             data: patients
        }
     res.status(200).json(data);
     } else {
         const data = {
-            message: "patient Not Found !"
+            message: "Data is empty"
        }
         res.status(200).json(data);
     }
@@ -30,7 +30,7 @@ async find(req,res){
 
   const patients = await Patient.find(id);
   const data = {
-          message: "Menampilkan patient by ID!",
+          message: "Get Detail Resource",
           data: patients
      }
   res.json(data);
@@ -44,7 +44,7 @@ async store(req, res) {
 
   if (!name || !phone || !address || !status, !in_date_at, !out_date_at) {
       const data = {
-          message: "Semua data harus di kirim!"
+          message: "All fields must be filled correctly"
       };
       res.status(442).json(data);
   } 
@@ -52,13 +52,14 @@ async store(req, res) {
   const patient = await Patient.create(req.body);
 
   const data = {
-      message: "Menambahkan data patient",
+      message: "Resource is added successfully",
       data: patient,
   };
   console.log(patient);
   // console.log(data);
 
   res.status(201).json(data);
+
 }
 
     // =================================================================
@@ -71,13 +72,13 @@ async store(req, res) {
       if (patient) {
           const patient = await Patient.update(id, req.body);
           const data = {
-              message: `Mengedit data patient`,
+              message: `Resource is update successfully`,
               data: patient
           }
           res.status(200).json(data);
       } else {
           const data = {
-              message: `patient Not Found`,
+              message: `Resource not found`,
           }
           res.status(404).json(data);
       }
@@ -92,13 +93,13 @@ async store(req, res) {
       if (patient) {
           await Patient.delete(id);
           const data = {
-              message: `Menghapus data patient`
+              message: `Resource is delete successfully`
           }
           res.status(200).json(data);
 
       } else {
           const data = {
-              message: `patient Not Found`,
+              message: `Resource not found`,
           }
           res.status(404).json(data);
       }
@@ -112,13 +113,13 @@ async store(req, res) {
 
       if (patient) {
           const data = {
-              message: `Menampilkan data patient`,
+              message: `Get Detail Resource`,
               data: patient
           }
           res.status(200).json(data); 
       } else {
           const data = {
-              message: `patient Not Found`,
+              message: `Resource not found`,
           }
           res.status(404).json(data);
       }
@@ -132,13 +133,13 @@ async store(req, res) {
 
       if (patient) {
           const data = {
-              message: `Menampilkan data patient`,
+              message: `Get searched resource`,
               data: patient
           }
           res.status(200).json(data); 
       } else {
           const data = {
-              message: `patient Not Found yang ya`,
+              message: `Resource not found`,
           }
           res.status(404).json(data);
       }
@@ -152,15 +153,16 @@ async store(req, res) {
      
       if (patients.length > 0) {
           const data = {
-              message: "Menampilkan Semua patient Positive!",
+              message: "Get positive resource",
               data: patients
          }
-      res.status(200).json(data);
+        res.status(200).json(data);
+      
       } else {
           const data = {
               message: "patient Not Found !"
          }
-          res.status(200).json(data);
+          res.status(404).json(data);
       }
   }
 
@@ -170,7 +172,7 @@ async store(req, res) {
    
     if (patients.length > 0) {
         const data = {
-            message: "Menampilkan Semua patient Negative!",
+            message: "Get recovered resource",
             data: patients
        }
     res.status(200).json(data);
@@ -178,10 +180,28 @@ async store(req, res) {
         const data = {
             message: "patient Not Found !"
        }
-        res.status(200).json(data);
+        res.status(404).json(data);
     }
 }
     // =================================================================
+
+    async dead_p(req,res){
+        // res.send("Menampilkan Semua patient!");
+        const patients = await Patient.dead();
+       
+        if (patients.length > 0) {
+            const data = {
+                message: "Get dead resource",
+                data: patients
+           }
+        res.status(200).json(data);
+        } else {
+            const data = {
+                message: "patient Not Found !"
+           }
+            res.status(404).json(data);
+        }
+    }
 
 }
 
@@ -189,4 +209,4 @@ async store(req, res) {
 const object = new PatientController();
 
 // export object PatientController
-module.exports = object;
+module.exports = object; 

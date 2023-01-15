@@ -30,6 +30,8 @@ router.get("/positive", PatientController.positive_p);
 
 router.get("/negative", PatientController.negative_p);
 
+router.get("/dead", PatientController.dead_p);
+
 router.delete("/patients/:id", PatientController.destroy);
 
 
