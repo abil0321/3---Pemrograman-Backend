@@ -4,10 +4,9 @@ const Patient = require("../models/Patient");
 // buat class PatientController
 class PatientController {
   // buat fungsi
-
-  // Promise + async await solution
+  
+//   Mendapatkan semua resource
   async index(req,res){
-    // res.send("Menampilkan Semua patient!");
     const patients = await Patient.all();
    
     if (patients.length > 0) {
@@ -25,7 +24,7 @@ class PatientController {
 }
 
 async find(req,res){
-  // res.send("Menampilkan Semua patient!");
+
   const {id} = req.params;
 
   const patients = await Patient.find(id);
@@ -37,6 +36,8 @@ async find(req,res){
 }
 
     // =================================================================
+
+    // Menambahkan Resource
 
 async store(req, res) {
 
@@ -64,6 +65,8 @@ async store(req, res) {
 
     // =================================================================
 
+    // Memperbarui single resource
+
     async update(req, res){
       const { id } = req.params;
       const patient = await Patient.find(id);
@@ -86,6 +89,8 @@ async store(req, res) {
 
     // =================================================================
 
+    // Menghapus single resource
+
     async destroy(req, res){
       const { id } = req.params;
       const patient = await Patient.find(id);
@@ -106,6 +111,8 @@ async store(req, res) {
   }
     // =================================================================
 
+    // Mendapatkan single resource
+
     async show(req, res){
       const { id } = req.params;
 
@@ -125,6 +132,8 @@ async store(req, res) {
       }
   }
     // =================================================================
+
+    // Mencari resource by name
 
     async search_name(req, res){
 
@@ -147,13 +156,16 @@ async store(req, res) {
   }
 
     // =================================================================
+
+    // Mendapatkan resource yang positif
+
     async positive_p(req,res){
-      // res.send("Menampilkan Semua patient!");
       const patients = await Patient.positive();
      
       if (patients.length > 0) {
           const data = {
               message: "Get positive resource",
+              total: patients.length,
               data: patients
          }
         res.status(200).json(data);
@@ -166,13 +178,15 @@ async store(req, res) {
       }
   }
 
+//   Mendapatkan resource yang sembuh
+
   async negative_p(req,res){
-    // res.send("Menampilkan Semua patient!");
     const patients = await Patient.negative();
    
     if (patients.length > 0) {
         const data = {
             message: "Get recovered resource",
+            total: patients.length,
             data: patients
        }
     res.status(200).json(data);
@@ -185,13 +199,15 @@ async store(req, res) {
 }
     // =================================================================
 
+    // Mendapatkan resource yang meninggal
+
     async dead_p(req,res){
-        // res.send("Menampilkan Semua patient!");
         const patients = await Patient.dead();
        
         if (patients.length > 0) {
             const data = {
                 message: "Get dead resource",
+                total: patients.length,
                 data: patients
            }
         res.status(200).json(data);
