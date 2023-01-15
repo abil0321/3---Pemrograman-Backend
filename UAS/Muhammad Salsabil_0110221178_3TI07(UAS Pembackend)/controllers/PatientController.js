@@ -43,7 +43,7 @@ async store(req, res) {
 
   const {name, phone, address, status, in_date_at, out_date_at} = req.body;
 
-  if (!name || !phone || !address || !status, !in_date_at, !out_date_at) {
+  if (!name || !phone || !address || !status, !in_date_at) {
       const data = {
           message: "All fields must be filled correctly"
       };
