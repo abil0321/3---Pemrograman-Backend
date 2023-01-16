@@ -22,7 +22,7 @@ router.post("/patients", PatientController.store);
 
 router.put("/patients/:id", PatientController.update);
 
-router.get("/patients/:id", PatientController.show);
+router.get("/patients/:id", PatientController.find);
 
 router.get("/patients_search/:name", PatientController.search_name);
 

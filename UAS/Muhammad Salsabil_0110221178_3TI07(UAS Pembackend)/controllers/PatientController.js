@@ -23,16 +23,26 @@ class PatientController {
         }
     }
 
-    async find(req, res) {
+    // Mendapatkan single resource
 
+    async find(req, res) {
         const { id } = req.params;
 
-        const patients = await Patient.find(id);
-        const data = {
-            message: "Get Detail Resource",
-            data: patients
+        const patient = await Patient.find(id);
+
+        if (patient) {
+            const data = {
+                message: `Get Detail Resource`,
+                data: patient
+            }
+            res.status(200).json(data);
+
+        } else {
+            const data = {
+                message: `Resource not found`,
+            }
+            res.status(404).json(data);
         }
-        res.json(data);
     }
 
     // =================================================================
@@ -49,7 +59,7 @@ class PatientController {
             };
             res.status(442).json(data);
         } else {
-            
+
             const patient = await Patient.create(req.body);
 
             const data = {
@@ -85,6 +95,7 @@ class PatientController {
             }
             res.status(404).json(data);
         }
+
     }
 
     // =================================================================
@@ -92,45 +103,27 @@ class PatientController {
     // Menghapus single resource
 
     async destroy(req, res) {
+
         const { id } = req.params;
         const patient = await Patient.find(id);
 
         if (patient) {
+
             await Patient.delete(id);
             const data = {
                 message: `Resource is delete successfully`
-            }
+            };
             res.status(200).json(data);
 
         } else {
             const data = {
                 message: `Resource not found`,
-            }
+            };
             res.status(404).json(data);
         }
+
     }
-    // =================================================================
 
-    // Mendapatkan single resource
-
-    async show(req, res) {
-        const { id } = req.params;
-
-        const patient = await Patient.find(id);
-
-        if (patient) {
-            const data = {
-                message: `Get Detail Resource`,
-                data: patient
-            }
-            res.status(200).json(data);
-        } else {
-            const data = {
-                message: `Resource not found`,
-            }
-            res.status(404).json(data);
-        }
-    }
     // =================================================================
 
     // Mencari resource by name
